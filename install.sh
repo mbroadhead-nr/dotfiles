@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-set -e
-
 echo "Manual install of code extensions"
-sleep 5
+sleep 10
+
+echo `whoami`
+echo `pwd`
+echo $PATH
 
 export VSCODE_IPC_HOOK_CLI="$(ls /tmp/vscode-ipc-*.sock  | head -n 1)"
 code_server_bin=$(ps -aux | grep "bin/code-server" | awk '{print $12}' | head -n 1)
