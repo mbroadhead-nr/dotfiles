@@ -1,13 +1,11 @@
 #!/bin/bash
 
-# Find the path to the code executable
-VSCODE_EXECUTABLE=$(which code)
+export VSCODE_IPC_HOOK_CLI="$(ls /tmp/vscode-ipc-*.sock  | head -n 1)"
+code_server_bin=$(ps -aux | grep "bin/code-server" | awk '{print $12}' | head -n 1)
+code_bin=$(dirname "$code_server_bin")/remote-cli/code
 
-# Check if the code executable is found
-if [ -z "$VSCODE_EXECUTABLE" ]; then
-  echo "Visual Studio Code executable not found."
-  exit 1
-fi
+echo $VSCODE_IPC_HOOK_CLI
+echo $code_bin
 
-# Install GitHub Copilot
-$VSCODE_EXECUTABLE --install-extension github.copilot
+echo "$code_bin --install-extension github.copilot"
+$code_bin --install-extension github.copilot
