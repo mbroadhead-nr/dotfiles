@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Manual install of code extensions"
-sleep 10
+# sleep 10
 
 echo `whoami`
 echo `pwd`
