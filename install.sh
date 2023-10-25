@@ -20,7 +20,7 @@ $code_bin --install-extension github.copilot
 # echo "Install and startup Tailscale"
 curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055 &
-sudo apt-get install proxychains
+sudo apt-get install proxychains -y
 sudo truncate -s 0 /etc/proxychains.conf
 sudo tee -a /etc/proxychains.conf > /dev/null <<EOT
 strict_chain
