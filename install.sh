@@ -83,13 +83,14 @@ case "$1" in
         ;;
 
   *)
-        log_action_msg "Usage: /etc/init.d/tailscaled {start|stop|status}" || true
+        log_action_msg "Usage: /etc/init.d/tailscale {start|stop|status}" || true
         exit 1
 esac
 
 exit 0
 EOT
-sudo system tailscale start
+sudo chmod a+x /etc/init.d/tailscale
+sudo service tailscale start
 # sudo tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055 &
 
 echo "Install Proxychains"
