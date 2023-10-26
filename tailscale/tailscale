@@ -33,9 +33,9 @@ case "$1" in
         log_daemon_msg "Starting Tailscale VPN" "tailscaled" || true
         if start-stop-daemon --start --oknodo --name tailscaled -m --pidfile /run/tailscaled.pid --background \
                 --exec /usr/sbin/tailscaled -- \
-                --state=/var/lib/tailscale/tailscaled.state \
-                --socket=/run/tailscale/tailscaled.sock \
-                --port 41641;
+                --tun=userspace-networking \
+                --socks5-server=localhost:1055 \
+                --outbound-http-proxy-listen=localhost:1055;
         then
             log_end_msg 0 || true
         else
