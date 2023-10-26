@@ -19,26 +19,15 @@ $code_bin --install-extension github.copilot
 
 # echo "Install and startup Tailscale"
 curl -fsSL https://tailscale.com/install.sh | sh
-sudo truncate -s 0 /etc/default/tailscaled
-sudo tee -a /etc/default/tailscaled > /dev/null <<EOT
-PORT="41641"
-FLAGS="--tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055"
-EOT
-sudo cp ./tailscale/tailscale /etc/init.d/tailscale
+sudo cp -f ./tailscale/tailscaled /etc/default/tailscaled
+sudo cp -f ./tailscale/tailscale /etc/init.d/tailscale
 sudo chmod a+x /etc/init.d/tailscale
 sudo service tailscale start
 # sudo tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055 &
 
 echo "Install Proxychains"
 sudo apt-get install proxychains -y
-sudo truncate -s 0 /etc/proxychains.conf
-sudo tee -a /etc/proxychains.conf > /dev/null <<EOT
-strict_chain
-tcp_read_time_out 15000
-tcp_connect_time_out 8000
-[ProxyList]
-socks5          127.0.0.1       1055
-EOT
+sudo cp -f ./tailscale/proxychains.conf /etc/proxychains.conf
 
 # echo "Install Github CLI"
 # type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
