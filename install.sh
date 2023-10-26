@@ -17,9 +17,8 @@ echo $code_bin
 echo "$code_bin --install-extension github.copilot"
 $code_bin --install-extension github.copilot
 
-# echo "Install and startup Tailscale"
+echo "Install and startup Tailscale"
 curl -fsSL https://tailscale.com/install.sh | sh
-sudo cp -f ./tailscale/tailscaled /etc/default/tailscaled
 sudo cp -f ./tailscale/tailscale /etc/init.d/tailscale
 sudo chmod a+x /etc/init.d/tailscale
 sudo service tailscale start
